@@ -1,17 +1,10 @@
 import React from "react";
 
-const Like = (props) => {
-  let classes = "fa fa-heart";
-  classes += props.like ? "" : "-o";
+const Like = ({ like, onClick }) => {
+  let classes = "clickable fa fa-heart";
+  classes += like ? "" : "-o";
 
-  return (
-    <i
-      onClick={props.onClick}
-      style={{ cursor: "pointer" }}
-      className={classes}
-      aria-hidden="true"
-    ></i>
-  );
+  return <i onClick={onClick} className={classes} aria-hidden="true"></i>;
 };
 
 export default Like;
