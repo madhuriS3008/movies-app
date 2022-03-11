@@ -1,47 +1,37 @@
 import React, { Component } from "react";
+import Joi from "joi-browser";
 import Input from "./common/Input";
+import FormValidation from "./common/FromValidation";
 
-class LoginForm extends Component {
+class LoginForm extends FormValidation {
   state = {
-    account: { username: "", password: "" },
+    data: { username: "", password: "" },
+    errors: {},
   };
+
+  schema = {
+    username: Joi.string().required().label("Username"),
+    password: Joi.string().required().label("Password"),
+  };
+
   //   username = React.createRef();
   //   componentDidMount() {
   //     this.username.current.focus();
   //   }
 
-  submitHandler = (e) => {
-    e.preventDefault();
+  loginSubmit = () => {
     // const username = this.username.current.value;
     console.log("Submitted");
   };
-  changeHandler = ({ currentTarget: input }) => {
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account });
-  };
+
   render() {
-    const { account } = this.state;
     return (
       <React.Fragment>
         <h1>Login</h1>
         <form onSubmit={this.submitHandler}>
-          <Input
-            type="text"
-            name="username"
-            label="Username"
-            value={account.username}
-            onChange={this.changeHandler}
-          />
-          <Input
-            type="password"
-            name="password"
-            label="Password"
-            value={account.password}
-            onChange={this.changeHandler}
-          />
-
-          <button className="btn btn-primary">Login</button>
+          {this.renderInput("username", "Username")}
+          {this.renderInput("password", "Password", "password")}
+          {this.renderButton("Login")}
         </form>
       </React.Fragment>
     );
