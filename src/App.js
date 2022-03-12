@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
-import Customers from "./components/Customers";
-import Movies from "./components/Movies";
-import Rentals from "./components/Rentals";
 import Navbar from "./components/Navbar";
+import Movies from "./components/Movies";
+import Customers from "./components/Customers";
+import Rentals from "./components/Rentals";
 import NotFound from "./components/NotFound";
-import MovieForm from "./components/MovieForm";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import MovieForm from "./components/MovieForm";
 
 class App extends Component {
   state = {};

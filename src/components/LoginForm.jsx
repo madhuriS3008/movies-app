@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import Joi from "joi-browser";
-import Input from "./common/Input";
 import FormValidation from "./common/FromValidation";
 
 class LoginForm extends FormValidation {
