@@ -37,7 +37,7 @@ class FormValidation extends Component {
 
     this.setState({ errors: errors || {} });
     if (errors) return;
-    this.loginSubmit();
+    this.formSubmit();
   };
 
   changeHandler = ({ currentTarget: input }) => {

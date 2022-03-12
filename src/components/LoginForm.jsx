@@ -19,7 +19,7 @@ class LoginForm extends FormValidation {
   //     this.username.current.focus();
   //   }
 
-  loginSubmit = () => {
+  formSubmit = () => {
     // const username = this.username.current.value;
     console.log("Submitted");
   };

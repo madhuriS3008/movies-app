@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import MovieForm from "./components/MovieForm";
 import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 
 class App extends Component {
   state = {};
@@ -20,6 +21,7 @@ class App extends Component {
         </header>
         <main className="container mt-3">
           <Switch>
+            <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/movies/:id" component={MovieForm} />
             <Route path="/movies" component={Movies} />
