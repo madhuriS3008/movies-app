@@ -1,8 +1,8 @@
 import React from "react";
 import Joi from "joi-browser";
 import FormValidation from "./common/FromValidation";
-import { getGenres } from "../services/fakeGenreService";
-import { getMovie, saveMovie } from "../services/fakeMovieService";
+import { getGenres } from "../services/genreService";
+import { getMovie, saveMovie } from "../services/movieService";
 
 class NewMovieForm extends FormValidation {
   state = {
@@ -30,17 +30,26 @@ class NewMovieForm extends FormValidation {
       .max(10)
       .label("Daily Rental Rate"),
   };
-  componentDidMount() {
-    const genres = getGenres();
+  async populateGenres() {
+    const { data: genres } = await getGenres();
     this.setState({ genres });
+  }
+  async populateMovie() {
+    try {
+      const movieId = this.props.match.params.id;
+      if (movieId === "new") return;
+      const { data: movie } = await getMovie(movieId);
 
-    const movieId = this.props.match.params.id;
-    if (movieId === "new") return;
+      this.setState({ data: this.mapToViewModel(movie) });
+    } catch (e) {
+      if (e.response && e.response.status === 404)
+        this.props.history.replace("/not-found");
+    }
+  }
+  async componentDidMount() {
+    await this.populateGenres();
 
-    const movie = getMovie(movieId);
-    if (!movie) return this.props.history.replace("/not-found");
-
-    this.setState({ data: this.mapToViewModel(movie) });
+    await this.populateMovie();
   }
   mapToViewModel(movie) {
     return {
@@ -51,8 +60,8 @@ class NewMovieForm extends FormValidation {
       dailyRentalRate: movie.dailyRentalRate,
     };
   }
-  formSubmit = () => {
-    saveMovie(this.state.data);
+  formSubmit = async () => {
+    await saveMovie(this.state.data);
     this.props.history.push("/movies");
   };
   render() {

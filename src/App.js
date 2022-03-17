@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import "./App.css";
+import { ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar";
 import Movies from "./components/Movies";
 import Customers from "./components/Customers";
@@ -9,6 +9,8 @@ import NotFound from "./components/NotFound";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import MovieForm from "./components/MovieForm";
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   state = {};
@@ -16,6 +18,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <ToastContainer />
         <header>
           <Navbar />
         </header>
