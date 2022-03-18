@@ -24,7 +24,8 @@ class LoginForm extends FormValidation {
       const { data } = this.state;
       const { data: jwt } = await login(data.username, data.password);
       localStorage.setItem("token", jwt);
-      this.props.history.push("/");
+      // this.props.history.push("/");
+      window.location = "/";
     } catch (e) {
       if (e.response && e.response.status === 400) {
         const errors = { ...this.state.errors };

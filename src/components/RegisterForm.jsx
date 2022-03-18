@@ -19,7 +19,8 @@ class RegisterForm extends FormValidation {
     try {
       const response = await register(this.state.data);
       localStorage.setItem("token", response.headers["x-auth-token"]);
-      this.props.history.push("/");
+      // this.props.history.push("/");
+      window.location = "/";
     } catch (e) {
       if (e.response && e.response.status === 400) {
         const errors = { ...this.state.errors };
