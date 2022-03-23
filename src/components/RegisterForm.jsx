@@ -1,7 +1,8 @@
 import React from "react";
 import Joi from "joi-browser";
 import FormValidation from "./common/FromValidation";
-import { register } from "./../services/userService";
+import { register } from "../services/userService";
+import { loginWithJwt } from "../services/authService";
 
 class RegisterForm extends FormValidation {
   state = {
@@ -18,7 +19,7 @@ class RegisterForm extends FormValidation {
   formSubmit = async () => {
     try {
       const response = await register(this.state.data);
-      localStorage.setItem("token", response.headers["x-auth-token"]);
+      loginWithJwt(response.headers["x-auth-token"]);
       // this.props.history.push("/");
       window.location = "/";
     } catch (e) {
