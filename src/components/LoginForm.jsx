@@ -1,7 +1,8 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import Joi from "joi-browser";
 import FormValidation from "./common/FromValidation";
-import { login } from "./../services/authService";
+import { login, getCurrentUser } from "./../services/authService";
 
 class LoginForm extends FormValidation {
   state = {
@@ -23,9 +24,9 @@ class LoginForm extends FormValidation {
     try {
       const { data } = this.state;
       await login(data.username, data.password);
-
+      const { state } = this.props.location;
       // this.props.history.push("/");
-      window.location = "/";
+      window.location = state ? state.from.pathname : "/";
     } catch (e) {
       if (e.response && e.response.status === 400) {
         const errors = { ...this.state.errors };
@@ -36,6 +37,7 @@ class LoginForm extends FormValidation {
   };
 
   render() {
+    if (getCurrentUser()) return <Redirect to="/" />;
     return (
       <React.Fragment>
         <h1>Login</h1>
